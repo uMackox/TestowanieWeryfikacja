@@ -1,0 +1,53 @@
+package tasks;
+
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
+
+@RunWith(Parameterized.class)
+public class RStest {
+	@Parameter(0)
+	public boolean R;
+	@Parameter(1)
+	public boolean S;
+	@Parameter(2)
+	public boolean Q;
+	@Parameter(3)
+	public boolean expected;
+	
+	
+	
+	@Parameters
+	public static Collection<Object[]> data(){
+		Object[][] data = new Object[][] {
+			{false,true,false,true},
+			{false,true,true,true},
+			{true,false,false,false},
+			{true,false,true,false},
+			{false,false,false,false},
+			{false,false,true,true}
+		};
+		return Arrays.asList(data);
+	}
+	
+	
+	@Test
+	public void testAllCases(){
+		RS flipflop = new RS();
+		flipflop.SetS(S);
+		flipflop.SetR(R);
+		flipflop.SetQ(Q);
+		flipflop.Run();
+		assertTrue(flipflop.GetQ()==expected);
+		assertTrue(flipflop.GetQ1()==!expected);
+	}
+	
+	
+}
